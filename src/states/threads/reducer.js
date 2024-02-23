@@ -6,44 +6,39 @@ export default function threadsReducer(threads = [], action = {}) {
       return action.payload.threads
     case actionType.CREATE_THREAD:
       return [action.payload.thread, ...threads]
-    case actionType.TOGGLE_VOTE_THREAD:
+    case actionType.UPVOTE_THREAD:
       return threads.map((thread) => {
         if (thread.id === action.payload.threadId) {
-          const { userId, voteType } = action.payload
-          const upVotes = thread.upVotesBy
-          const downVotes = thread.downVotesBy
-          const isUpVoted = upVotes.includes(userId)
-          const isDownVoted = downVotes.includes(userId)
-
-          if (voteType === 1) {
-            if (isUpVoted) {
-              thread.upVotesBy = upVotes.filter((id) => id !== userId)
-            } else {
-              thread.upVotesBy = [...upVotes, userId]
-              if (isDownVoted) {
-                thread.downVotesBy = downVotes.filter((id) => id !== userId)
-              }
-            }
-          }
-          if (voteType === -1) {
-            if (isDownVoted) {
-              thread.downVotes = downVotes.filter((id) => id !== userId)
-            } else {
-              thread.downVotes = [...downVotes, userId]
-              if (isUpVoted) {
-                thread.upVotes = upVotes.filter((id) => id !== userId)
-              }
-            }
-          }
-          if (voteType === 0) {
-            if (isUpVoted) {
-              thread.upVotesBy = upVotes.filter((id) => id !== userId)
-            } else if (isDownVoted) {
-              thread.downVotesBy = downVotes.filter((id) => id !== userId)
-            }
+          thread.upVotesBy = [...thread.upVotesBy, action.payload.userId]
+          if (thread.downVotesBy.includes(action.payload.userId)) {
+            thread.downVotesBy = thread.downVotesBy.filter((id) => id !== action.payload.userId)
           }
         }
-
+        return thread
+      })
+    case actionType.DOWNVOTE_THREAD:
+      return threads.map((thread) => {
+        if (thread.id === action.payload.threadId) {
+          thread.downVotesBy = [...thread.downVotesBy, action.payload.userId]
+          if (thread.upVotesBy.includes(action.payload.userId)) {
+            thread.upVotesBy = thread.upVotesBy.filter((id) => id !== action.payload.userId)
+          }
+        }
+        return thread
+      })
+    case actionType.UNVOTE_THREAD:
+      return threads.map((thread) => {
+        const { upVotesBy: upVotes, downVotesBy: downVotes } = thread
+        const isUpVoted = upVotes.includes(action.payload.userId)
+        const isDownVoted = downVotes.includes(action.payload.userId)
+        if (thread.id === action.payload.threadId) {
+          if (isUpVoted) {
+            thread.upVotesBy = upVotes.filter((id) => id !== action.payload.userId)
+          }
+          if (isDownVoted) {
+            thread.downVotesBy = downVotes.filter((id) => id !== action.payload.userId)
+          }
+        }
         return thread
       })
     default:
