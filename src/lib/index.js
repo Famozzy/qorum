@@ -1,3 +1,6 @@
+import clsx from 'clsx'
+import { twMerge } from 'tw-merge'
+
 function postedAt(date) {
   const now = new Date()
   const posted = new Date(date)
@@ -14,4 +17,8 @@ function postedAt(date) {
   return 'just now'
 }
 
-export { postedAt }
+function cn(...classes) {
+  return twMerge(clsx(...classes))
+}
+
+export { postedAt, cn }
