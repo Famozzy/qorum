@@ -20,7 +20,6 @@ function asyncPreloadProcess() {
       const authUser = await api.getUserOwnProfile()
       dispatch(setAuthUser(authUser))
     } catch (error) {
-      alert(error.message)
       dispatch(setAuthUser(null))
     } finally {
       dispatch(setIsPreload(false))

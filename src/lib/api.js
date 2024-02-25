@@ -160,7 +160,7 @@ export const api = (() => {
   }
 
   const unvoteThread = async (threadId) => {
-    const { data: response } = await _axiosWithAuth.delete(`/threads/${threadId}/neutral-vote`)
+    const { data: response } = await _axiosWithAuth.post(`/threads/${threadId}/neutral-vote`)
 
     const { data, message, status } = response
     if (status === 'error') {

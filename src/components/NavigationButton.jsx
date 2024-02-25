@@ -5,7 +5,7 @@ export default function NavigationButton({ title, path, icon, onClick }) {
   if (path) {
     return (
       <Link to={path}>
-        <button className="btn btn-ghost tooltip lg:tooltip-right" data-tip={title}>
+        <button className="btn btn-square btn-ghost tooltip flex lg:tooltip-right" data-tip={title}>
           {icon}
         </button>
       </Link>
@@ -13,7 +13,7 @@ export default function NavigationButton({ title, path, icon, onClick }) {
   }
 
   return (
-    <button onClick={onClick} className="btn btn-ghost tooltip lg:tooltop-right" data-tip={title}>
+    <button onClick={onClick} className="btn btn-square btn-ghost tooltip flex lg:tooltip-right" data-tip={title}>
       {icon}
     </button>
   )

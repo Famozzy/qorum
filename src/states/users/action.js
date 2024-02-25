@@ -14,11 +14,11 @@ function receiveUsers(users) {
   }
 }
 
-function asyncRegisterUser(user) {
+function asyncRegisterUser({ name, email, password }) {
   return async (dispatch) => {
     try {
-      const newUser = await api.registerUser(user)
-      dispatch(receiveUsers([newUser]))
+      await api.register({ name, email, password })
+      dispatch(receiveUsers())
     } catch (error) {
       toast.error(error.message)
     }

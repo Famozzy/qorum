@@ -36,6 +36,7 @@ function asyncUnsetAuthUser() {
   return (dispatch) => {
     api.removeAccessToken()
     dispatch(unsetAuthUser())
+    toast.success('Logged out')
   }
 }
 

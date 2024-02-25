@@ -63,13 +63,6 @@ function downVoteThread({ threadId, userId }) {
   }
 }
 
-// function toggleVoteThread({ threadId, userId, voteType }) {
-//   return {
-//     type: actionType.TOGGLE_VOTE_THREAD,
-//     payload: { threadId, userId, voteType }
-//   }
-// }
-
 function asyncReceiveThreads() {
   return async (dispatch) => {
     try {
@@ -86,7 +79,7 @@ function asyncUpvoteThread(threadId) {
     const { authUser } = getState()
     dispatch(upVoteThread({ threadId, userId: authUser.id }))
     try {
-      await api.upVoteThread()
+      await api.upVoteThread(threadId)
     } catch (error) {
       toast.error(error.message)
       dispatch(unvoteThread({ threadId, userId: authUser.id }))
@@ -99,7 +92,7 @@ function asyncDownvoteThread(threadId) {
     const { authUser } = getState()
     dispatch(downVoteThread({ threadId, userId: authUser.id }))
     try {
-      await api.downVoteThread()
+      await api.downVoteThread(threadId)
     } catch (error) {
       toast.error(error.message)
       dispatch(unvoteThread({ threadId, userId: authUser.id }))
@@ -112,7 +105,7 @@ function asyncUnvoteThread({ threadId, previousVoteType }) {
     const { authUser } = getState()
     dispatch(unvoteThread({ threadId, userId: authUser.id }))
     try {
-      await api.unvoteThread()
+      await api.unvoteThread(threadId)
     } catch (error) {
       toast.error(error.message)
       if (previousVoteType === voteType.UPVOTE) {
@@ -124,27 +117,6 @@ function asyncUnvoteThread({ threadId, previousVoteType }) {
     }
   }
 }
-
-// function asyncToggleVoteThread(threadId, voteType) {
-//   return async (dispatch, getState) => {
-//     const { authUser } = getState()
-//     dispatch(toggleVoteThread({ threadId, voteType, userId: authUser.id }))
-//     try {
-//       if (voteType === _voteType.UPVOTE) {
-//         await api.upVoteThread(threadId)
-//       }
-//       if (voteType === _voteType.DOWNVOTE) {
-//         await api.downVoteThread(threadId)
-//       }
-//       if (voteType === _voteType.NEUTRAL) {
-//         await api.unvoteThread(threadId)
-//       }
-//     } catch (error) {
-//       toast.error(error.message)
-//       dispatch(toggleVoteThread({ threadId, voteType, userId: authUser.id }))
-//     }
-//   }
-// }
 
 export {
   actionType,
