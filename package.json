@@ -1,5 +1,5 @@
 {
-  "name": "dialogr",
+  "name": "qorum",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.7",
     "clsx": "^2.1.0",
+    "html-react-parser": "^5.1.7",
     "lucide-react": "^0.336.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
