@@ -4,16 +4,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import Layout from './Layout'
 import FallbackPage from './pages/FallbackPage'
 import HomePage from './pages/HomePage'
+import LeaderboardsPage from './pages/LeaderboardsPage'
 import CreateThreadModal from './components/CreateThreadModal'
 import { asyncPreloadProcess } from './states/isPreload/action'
 
 function App() {
-  const authUser = useSelector((state) => state.authUser)
+  const { authUser, isPreload } = useSelector((state) => state)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(asyncPreloadProcess())
   }, [dispatch])
+
+  if (isPreload) {
+    return null
+  }
 
   if (!authUser) {
     return (
@@ -21,7 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/threads/:id" element={<h1>Thread Detail</h1>} />
-          <Route path="/leaderboards" element={<h1>Leaderboards</h1>} />
+          <Route path="/leaderboards" element={<LeaderboardsPage />} />
           <Route path="/login" element={<h1>Login</h1>} />
           <Route path="/register" element={<h1>Signup</h1>} />
           <Route path="/*" element={<FallbackPage />} />
@@ -35,7 +40,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/threads/:id" element={<h1>Thread Detail</h1>} />
-        <Route path="/leaderboards" element={<h1>Leaderboards</h1>} />
+        <Route path="/leaderboards" element={<LeaderboardsPage />} />
         <Route path="/*" element={<FallbackPage />} />
       </Routes>
       <CreateThreadModal />
