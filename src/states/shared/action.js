@@ -24,7 +24,7 @@ function asyncPopulateData() {
 function asyncCreateThreadAndCategory({ title, body, category }) {
   return async (dispatch, getState) => {
     const { categories } = getState()
-    const isCategoryExist = categories.include((_category) => _category === category)
+    const isCategoryExist = categories.includes((_category) => _category === category)
 
     try {
       const newThread = await api.createThread({ title, body, category })
