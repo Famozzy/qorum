@@ -77,6 +77,10 @@ function asyncReceiveThreads() {
 function asyncUpvoteThread(threadId) {
   return async (dispatch, getState) => {
     const { authUser } = getState()
+    if (!authUser) {
+      toast.error('You need to login first')
+      return
+    }
     dispatch(upVoteThread({ threadId, userId: authUser.id }))
     try {
       await api.upVoteThread(threadId)
@@ -90,6 +94,10 @@ function asyncUpvoteThread(threadId) {
 function asyncDownvoteThread(threadId) {
   return async (dispatch, getState) => {
     const { authUser } = getState()
+    if (!authUser) {
+      toast.error('You need to login first')
+      return
+    }
     dispatch(downVoteThread({ threadId, userId: authUser.id }))
     try {
       await api.downVoteThread(threadId)

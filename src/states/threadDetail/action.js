@@ -3,10 +3,14 @@ import toast from 'react-hot-toast'
 
 const actionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
+  CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
+  UPVOTE_THREAD_DETAIL: 'UPVOTE_THREAD_DETAIL',
+  DOWNVOTE_THREAD_DETAIL: 'DOWNVOTE_THREAD_DETAIL',
+  UNVOTE_THREAD_DETAIL: 'UNVOTE_THREAD_DETAIL',
   ADD_THREAD_DETAIL_COMMENT: 'ADD_THREAD_DETAIL_COMMENT',
-  UPVOTE_THREAD_DETAIL_COMMENT: 'TOGGLE_VOTE_THREAD_DETAIL_COMMENT',
-  DOWNVOTE_THREAD_DETAIL_COMMENT: 'TOGGLE_VOTE_THREAD_DETAIL_COMMENT',
-  UNVOTE_THREAD_DETAIL_COMMENT: 'TOGGLE_VOTE_THREAD_DETAIL_COMMENT'
+  UPVOTE_THREAD_DETAIL_COMMENT: 'UPVOTE_THREAD_DETAIL_COMMENT',
+  DOWNVOTE_THREAD_DETAIL_COMMENT: 'DOWNVOTE_THREAD_DETAIL_COMMENT',
+  UNVOTE_THREAD_DETAIL_COMMENT: 'UNVOTE_THREAD_DETAIL_COMMENT'
 }
 
 const voteType = {
@@ -24,9 +28,42 @@ function receiveThreadDetail(threadDetail) {
   }
 }
 
+function clearThreadDetail() {
+  return {
+    type: actionType.CLEAR_THREAD_DETAIL
+  }
+}
+
+function upVoteThreadDetail(userId) {
+  return {
+    type: actionType.UPVOTE_THREAD_DETAIL,
+    payload: {
+      userId
+    }
+  }
+}
+
+function unVoteThreadDetail(userId) {
+  return {
+    type: actionType.UNVOTE_THREAD_DETAIL,
+    payload: {
+      userId
+    }
+  }
+}
+
+function downVoteThreadDetail(userId) {
+  return {
+    type: actionType.DOWNVOTE_THREAD_DETAIL,
+    payload: {
+      userId
+    }
+  }
+}
+
 function addThreadDetailComment(comment) {
   return {
-    type: actionType.ADD_COMMENT_THREAD_DETAIL,
+    type: actionType.ADD_THREAD_DETAIL_COMMENT,
     payload: {
       comment
     }
@@ -74,11 +111,65 @@ function asyncReceiveThreadDetail(threadId) {
   }
 }
 
+function asyncUpVoteThreadDetail(threadId) {
+  return async (dispatch, getState) => {
+    const { authUser } = getState()
+    if (!authUser) {
+      toast.error('You need to login first')
+      return
+    }
+    dispatch(upVoteThreadDetail(authUser.id))
+    try {
+      await api.upVoteThread(threadId)
+    } catch (error) {
+      toast.error(error.message)
+      dispatch(unVoteThreadDetail({ userId: authUser.id, previousVoteType: voteType.UPVOTE }))
+    }
+  }
+}
+
+function asyncDownVoteThreadDetail(threadId) {
+  return async (dispatch, getState) => {
+    const { authUser } = getState()
+    if (!authUser) {
+      toast.error('You need to login first')
+      return
+    }
+    dispatch(downVoteThreadDetail(authUser.id))
+    try {
+      await api.downVoteThread(threadId)
+    } catch (error) {
+      toast.error(error.message)
+      dispatch(unVoteThreadDetail({ userId: authUser.id, previousVoteType: voteType.DOWNVOTE }))
+    }
+  }
+}
+
+function asyncUnVoteThreadDetail({ threadId, previousVoteType }) {
+  return async (dispatch, getState) => {
+    const { authUser } = getState()
+    dispatch(unVoteThreadDetail(authUser.id))
+    try {
+      await api.unvoteThread(threadId)
+    } catch (error) {
+      toast.error(error.message)
+      if (previousVoteType === voteType.UPVOTE) {
+        dispatch(upVoteThreadDetail(authUser.id))
+      }
+      if (previousVoteType === voteType.DOWNVOTE) {
+        dispatch(downVoteThreadDetail(authUser.id))
+      }
+    }
+  }
+}
+
 function asyncAddThreadDetailComment({ threadId, content }) {
   return async (dispatch) => {
     try {
       const newComment = await api.createComment({ threadId, content })
+      console.log(newComment)
       dispatch(addThreadDetailComment(newComment))
+      toast.success('Comment added successfully')
     } catch (error) {
       toast.error(error.message)
     }
@@ -88,6 +179,10 @@ function asyncAddThreadDetailComment({ threadId, content }) {
 function asyncUpVoteThreadDetailComment({ threadId, commentId }) {
   return async (dispatch, getState) => {
     const { authUser } = getState()
+    if (!authUser) {
+      toast.error('You need to login first')
+      return
+    }
     dispatch(upVoteThreadDetailComment({ commentId, userId: authUser.id }))
     try {
       await api.upVoteComment(threadId, commentId)
@@ -101,6 +196,10 @@ function asyncUpVoteThreadDetailComment({ threadId, commentId }) {
 function asyncDownVoteThreadDetailComment({ threadId, commentId }) {
   return async (dispatch, getState) => {
     const { authUser } = getState()
+    if (!authUser) {
+      toast.error('You need to login first')
+      return
+    }
     dispatch(downVoteThreadDetailComment({ commentId, userId: authUser.id }))
     try {
       await api.downVoteComment(threadId, commentId)
@@ -140,5 +239,12 @@ export {
   asyncAddThreadDetailComment,
   asyncUpVoteThreadDetailComment,
   asyncDownVoteThreadDetailComment,
-  asyncUnVoteThreadDetailComment
+  asyncUnVoteThreadDetailComment,
+  clearThreadDetail,
+  upVoteThreadDetail,
+  downVoteThreadDetail,
+  unVoteThreadDetail,
+  asyncUpVoteThreadDetail,
+  asyncDownVoteThreadDetail,
+  asyncUnVoteThreadDetail
 }

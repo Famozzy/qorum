@@ -117,8 +117,8 @@ export const api = (() => {
       throw new Error(message)
     }
 
-    const { thread } = data
-    return thread
+    const { detailThread } = data
+    return detailThread
   }
 
   const createComment = async ({ threadId, content }) => {
@@ -131,8 +131,8 @@ export const api = (() => {
       throw new Error(message)
     }
 
-    const { comments } = data
-    return comments
+    const { comment } = data
+    return comment
   }
 
   const upVoteThread = async (threadId) => {
@@ -196,7 +196,7 @@ export const api = (() => {
   }
 
   const unvoteComment = async (threadId, commentId) => {
-    const { data: response } = await _axiosWithAuth.delete(`/threads/${threadId}/comments/${commentId}/neutral-vote`)
+    const { data: response } = await _axiosWithAuth.post(`/threads/${threadId}/comments/${commentId}/neutral-vote`)
 
     const { data, message, status } = response
     if (status === 'error') {

@@ -4,50 +4,68 @@ export default function threadDetailReducer(threadDetail = null, action = {}) {
   switch (action.type) {
     case actionType.RECEIVE_THREAD_DETAIL:
       return action.payload.threadDetail
-    case actionType.CREATE_COMMENT:
+    case actionType.CLEAR_THREAD_DETAIL:
+      return null
+    case actionType.UPVOTE_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        upVotesBy: [...threadDetail.upVotesBy, action.payload.userId],
+        downVotesBy: threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
+      }
+    case actionType.DOWNVOTE_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        downVotesBy: [...threadDetail.downVotesBy, action.payload.userId],
+        upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
+      }
+    case actionType.UNVOTE_THREAD_DETAIL:
+      return {
+        ...threadDetail,
+        upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId),
+        downVotesBy: threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
+      }
+    case actionType.ADD_THREAD_DETAIL_COMMENT:
       return {
         ...threadDetail,
         comments: [action.payload.comment, ...threadDetail.comments]
       }
-    case actionType.UPVOTE_COMMENT:
+    case actionType.UPVOTE_THREAD_DETAIL_COMMENT:
       return {
         ...threadDetail,
         comments: threadDetail.comments.map((comment) => {
           if (comment.id === action.payload.commentId) {
-            comment.upVotesBy = [...comment.upVotesBy, action.payload.userId]
-            if (comment.downVotesBy.includes(action.payload.userId)) {
-              comment.downVotesBy = comment.downVotesBy.filter((id) => id !== action.payload.userId)
+            return {
+              ...comment,
+              upVotesBy: [...comment.upVotesBy, action.payload.userId],
+              downVotesBy: comment.downVotesBy.filter((id) => id !== action.payload.userId)
             }
           }
           return comment
         })
       }
-    case actionType.DOWNVOTE_COMMENT:
+    case actionType.DOWNVOTE_THREAD_DETAIL_COMMENT:
       return {
         ...threadDetail,
         comments: threadDetail.comments.map((comment) => {
           if (comment.id === action.payload.commentId) {
-            comment.downVotesBy = [...comment.downVotesBy, action.payload.userId]
-            if (comment.upVotesBy.includes(action.payload.userId)) {
-              comment.upVotesBy = comment.upVotesBy.filter((id) => id !== action.payload.userId)
+            return {
+              ...comment,
+              downVotesBy: [...comment.downVotesBy, action.payload.userId],
+              upVotesBy: comment.upVotesBy.filter((id) => id !== action.payload.userId)
             }
           }
           return comment
         })
       }
-    case actionType.UNVOTE_COMMENT:
+    case actionType.UNVOTE_THREAD_DETAIL_COMMENT:
       return {
         ...threadDetail,
         comments: threadDetail.comments.map((comment) => {
-          const { upVotesBy: upVotes, downVotesBy: downVotes } = comment
-          const isUpVoted = upVotes.includes(action.payload.userId)
-          const isDownVoted = downVotes.includes(action.payload.userId)
           if (comment.id === action.payload.commentId) {
-            if (isUpVoted) {
-              comment.upVotesBy = upVotes.filter((id) => id !== action.payload.userId)
-            }
-            if (isDownVoted) {
-              comment.downVotesBy = downVotes.filter((id) => id !== action.payload.userId)
+            return {
+              ...comment,
+              upVotesBy: comment.upVotesBy.filter((id) => id !== action.payload.userId),
+              downVotesBy: comment.downVotesBy.filter((id) => id !== action.payload.userId)
             }
           }
           return comment
