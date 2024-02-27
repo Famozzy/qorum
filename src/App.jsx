@@ -5,8 +5,8 @@ import Layout from './Layout'
 import FallbackPage from './pages/FallbackPage'
 import HomePage from './pages/HomePage'
 import LeaderboardsPage from './pages/LeaderboardsPage'
-import CreateThreadModal from './components/CreateThreadModal'
 import { asyncPreloadProcess } from './states/isPreload/action'
+import CreateThreadPage from './pages/CreateThreadPage'
 
 function App() {
   const { authUser, isPreload } = useSelector((state) => state)
@@ -39,11 +39,11 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/threads/new" element={<CreateThreadPage />} />
         <Route path="/threads/:id" element={<h1>Thread Detail</h1>} />
         <Route path="/leaderboards" element={<LeaderboardsPage />} />
         <Route path="/*" element={<FallbackPage />} />
       </Routes>
-      <CreateThreadModal />
     </Layout>
   )
 }

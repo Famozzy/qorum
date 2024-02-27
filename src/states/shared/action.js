@@ -34,8 +34,10 @@ function asyncCreateThreadAndCategory({ title, body, category }) {
       dispatch(addThread(newThread))
       dispatch(closeModal())
       toast.success('Thread has been posted')
+      return { error: false }
     } catch (error) {
       toast.error(error.message)
+      return { error: true }
     }
   }
 }

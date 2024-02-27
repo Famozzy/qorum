@@ -1,11 +1,13 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import useInput from '../hooks/useInput'
 import { asyncCreateThreadAndCategory } from '../states/shared/action'
 
 export default function CreateThreadForm() {
   const categories = useSelector((state) => state.categories)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [title, onTitleChange] = useInput()
   const [body, onBodyChange] = useInput()
@@ -13,14 +15,16 @@ export default function CreateThreadForm() {
 
   const submitHandler = (ev) => {
     ev.preventDefault()
-    dispatch(asyncCreateThreadAndCategory({ title, body, category }))
+    dispatch(asyncCreateThreadAndCategory({ title, body, category })).then((res) => {
+      !res.error && navigate('/')
+    })
   }
 
   return (
-    <form className="space-y-2" onSubmit={submitHandler}>
+    <form className="space-y-4 relative" onSubmit={submitHandler}>
       <input
         type="text"
-        className="input text-xl font-semibold input-ghost rounded-none w-full border-0 focus:outline-0 p-0 focus:border-b focus:border-primary"
+        className="input text-xl font-semibold input-ghost rounded-none w-full border-0 focus:outline-0 px-0.5 py-0 focus:border-b focus:border-primary"
         placeholder="An Interest Title"
         value={title}
         onChange={onTitleChange}
@@ -29,7 +33,7 @@ export default function CreateThreadForm() {
       <input
         type="text"
         placeholder="A Cool Category"
-        className="input input-xs input-ghost rounded-none w-full border-0 focus:outline-0 p-0 mt-2 mb-4 focus:border-b focus:border-primary"
+        className="input input-xs input-ghost rounded-none w-full border-0 focus:outline-0 px-0.5 py-0 focus:border-b focus:border-primary"
         list="categories"
         value={category}
         onChange={onCategoryChange}
@@ -45,7 +49,7 @@ export default function CreateThreadForm() {
         onInput={onBodyChange}
         contentEditable
       ></div>
-      <button type="submit" className="btn btn-primary btn-sm text-xs px-8 mt-4 absolute right-4 top-2">
+      <button type="submit" className="btn btn-primary btn-sm text-xs px-8 mt-4 absolute right-0 -top-14">
         Post
       </button>
     </form>
