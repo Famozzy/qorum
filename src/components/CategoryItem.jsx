@@ -1,5 +1,6 @@
 import React from 'react'
 import { cn } from '../lib'
+import PropTypes from 'prop-types'
 
 export default function CategoryItem({ isSelected, clickHandler, category }) {
   return (
@@ -11,4 +12,10 @@ export default function CategoryItem({ isSelected, clickHandler, category }) {
       {category}
     </span>
   )
+}
+
+CategoryItem.propTypes = {
+  isSelected: PropTypes.bool.isRequired,
+  clickHandler: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired
 }

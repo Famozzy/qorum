@@ -8,6 +8,7 @@ import {
 import { postedAt } from '../lib'
 import parser from 'html-react-parser'
 import VoteButton from './VoteButton'
+import PropTypes from 'prop-types'
 
 export default function CommentItem({ threadId, owner, commentId, content, createdAt, upVotesBy, downVotesBy }) {
   const authUser = useSelector((state) => state.authUser)
@@ -42,4 +43,20 @@ export default function CommentItem({ threadId, owner, commentId, content, creat
       </div>
     </div>
   )
+}
+
+const ownerShape = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired
+}
+
+CommentItem.propTypes = {
+  threadId: PropTypes.string.isRequired,
+  owner: PropTypes.shape(ownerShape).isRequired,
+  commentId: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired
 }

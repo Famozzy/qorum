@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { cn } from '../lib'
 import SkeletonTopThree from './SkeletonTopThree'
+import PropTypes from 'prop-types'
 
 export default function LeaderboardTopThree({ leaderboards }) {
   const authUser = useSelector((state) => state.authUser)
@@ -34,5 +35,20 @@ export default function LeaderboardTopThree({ leaderboards }) {
         )}
       </ol>
     </>
+  )
+}
+
+const userShape = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired
+}
+
+LeaderboardTopThree.propTypes = {
+  leaderboards: PropTypes.arrayOf(
+    PropTypes.shape({
+      user: PropTypes.shape(userShape).isRequired,
+      score: PropTypes.number.isRequired
+    })
   )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { cn } from '../lib'
 import { useSelector } from 'react-redux'
 import SkeletonRemaining from './SkeletonRemaining'
+import PropTypes from 'prop-types'
 
 export default function LeaderboardRemaining({ leaderboards }) {
   const authUser = useSelector((state) => state.authUser)
@@ -25,5 +26,20 @@ export default function LeaderboardRemaining({ leaderboards }) {
         <SkeletonRemaining />
       )}
     </ol>
+  )
+}
+
+const userShape = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired
+}
+
+LeaderboardRemaining.propTypes = {
+  leaderboards: PropTypes.arrayOf(
+    PropTypes.shape({
+      user: PropTypes.shape(userShape).isRequired,
+      score: PropTypes.number.isRequired
+    })
   )
 }

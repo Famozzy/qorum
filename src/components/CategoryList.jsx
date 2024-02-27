@@ -2,6 +2,7 @@ import React from 'react'
 import useSelectedCategory from '../hooks/useSelectedCategory'
 import SkeletonCategoryList from './SkeletonCategoryList'
 import CategoryItem from './CategoryItem'
+import PropTypes from 'prop-types'
 
 export default function CategoriesList({ categories }) {
   const { selectedCategory, setSelectedCategory } = useSelectedCategory()
@@ -24,4 +25,8 @@ export default function CategoriesList({ categories }) {
       </div>
     </>
   )
+}
+
+CategoriesList.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired
 }

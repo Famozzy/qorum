@@ -9,6 +9,7 @@ import parser from 'html-react-parser'
 import { postedAt } from '../lib'
 import VoteButton from './VoteButton'
 import { MessageSquareReplyIcon } from 'lucide-react'
+import PropTypes from 'prop-types'
 
 export default function ThreadDetail({
   id,
@@ -71,4 +72,31 @@ export default function ThreadDetail({
       </div>
     </div>
   )
+}
+
+const ownerShape = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired
+}
+
+const commentShape = {
+  id: PropTypes.string.isRequired,
+  owner: PropTypes.shape(ownerShape).isRequired,
+  content: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired
+}
+
+ThreadDetail.propTypes = {
+  id: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  owner: PropTypes.shape(ownerShape).isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape(commentShape)).isRequired
 }

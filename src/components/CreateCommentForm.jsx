@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { asyncAddThreadDetailComment } from '../states/threadDetail/action'
 import { Link } from 'react-router-dom'
 import useInput from '../hooks/useInput'
+import PropTypes from 'prop-types'
 
 export default function CreateCommentForm({ threadId }) {
   const authUser = useSelector((state) => state.authUser)
@@ -46,4 +47,8 @@ export default function CreateCommentForm({ threadId }) {
       </button>
     </div>
   )
+}
+
+CreateCommentForm.propTypes = {
+  threadId: PropTypes.string.isRequired
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 import { cn } from '../lib'
+import PropTypes from 'prop-types'
 
 export default function VoteButton({ type, onClick, isVoted, voteCount }) {
   const voteTypes = {
@@ -20,4 +21,11 @@ export default function VoteButton({ type, onClick, isVoted, voteCount }) {
       {voteCount}
     </button>
   )
+}
+
+VoteButton.propTypes = {
+  type: PropTypes.oneOf(['up', 'down']).isRequired,
+  onClick: PropTypes.func.isRequired,
+  isVoted: PropTypes.bool.isRequired,
+  voteCount: PropTypes.number.isRequired
 }

@@ -7,6 +7,7 @@ import { postedAt } from '../lib'
 import { asyncUpvoteThread, asyncDownvoteThread, asyncUnvoteThread } from '../states/threads/action'
 import toast from 'react-hot-toast'
 import VoteButton from './VoteButton'
+import PropTypes from 'prop-types'
 
 export default function ThreadItem({
   id,
@@ -82,4 +83,24 @@ export default function ThreadItem({
       </div>
     </article>
   )
+}
+
+const userShape = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired
+}
+
+ThreadItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  owner: PropTypes.shape(userShape).isRequired,
+  createdAt: PropTypes.string.isRequired,
+  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  totalComments: PropTypes.number.isRequired,
+  authUser: PropTypes.shape(userShape)
 }
