@@ -167,7 +167,6 @@ function asyncAddThreadDetailComment({ threadId, content }) {
   return async (dispatch) => {
     try {
       const newComment = await api.createComment({ threadId, content })
-      console.log(newComment)
       dispatch(addThreadDetailComment(newComment))
       toast.success('Comment added successfully')
     } catch (error) {
