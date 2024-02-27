@@ -3,7 +3,6 @@ import toast from 'react-hot-toast'
 import { addThread, receiveThreads } from '../threads/action'
 import { addCategory, receiveCategories } from '../categories/action'
 import { receiveUsers } from '../users/action'
-import { closeModal } from '../isModalOpen/action'
 
 function asyncPopulateData() {
   return async (dispatch) => {
@@ -32,7 +31,6 @@ function asyncCreateThreadAndCategory({ title, body, category }) {
         dispatch(addCategory(newThread.category))
       }
       dispatch(addThread(newThread))
-      dispatch(closeModal())
       toast.success('Thread has been posted')
       return { error: false }
     } catch (error) {

@@ -6,7 +6,6 @@ import categoriesReducer from './categories/reducer'
 import threadDetailReducer from './threadDetail/reducer'
 import leaderboardsReducer from './leaderboards/reducer'
 import usersReducer from './users/reducer'
-import isModalOpenReducer from './isModalOpen/reducer'
 
 const store = configureStore({
   reducer: {
@@ -16,8 +15,7 @@ const store = configureStore({
     threads: threadsReducer,
     categories: categoriesReducer,
     threadDetail: threadDetailReducer,
-    leaderboards: leaderboardsReducer,
-    isModalOpen: isModalOpenReducer
+    leaderboards: leaderboardsReducer
   }
 })
 

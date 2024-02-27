@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage'
 import LeaderboardsPage from './pages/LeaderboardsPage'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import CreateThreadPage from './pages/CreateThreadPage'
+import ThreadDetailPage from './pages/ThreadDetailPage'
 
 function App() {
   const { authUser, isPreload } = useSelector((state) => state)
@@ -20,27 +21,19 @@ function App() {
     return null
   }
 
-  if (!authUser) {
-    return (
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/threads/:id" element={<h1>Thread Detail</h1>} />
-          <Route path="/leaderboards" element={<LeaderboardsPage />} />
-          <Route path="/login" element={<h1>Login</h1>} />
-          <Route path="/register" element={<h1>Signup</h1>} />
-          <Route path="/*" element={<FallbackPage />} />
-        </Routes>
-      </Layout>
-    )
-  }
-
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/threads/new" element={<CreateThreadPage />} />
-        <Route path="/threads/:id" element={<h1>Thread Detail</h1>} />
+        {authUser ? (
+          <Route path="/threads/new" element={<CreateThreadPage />} />
+        ) : (
+          <>
+            <Route path="/login" element={<h1>Login</h1>} />
+            <Route path="/register" element={<h1>Register</h1>} />
+          </>
+        )}
+        <Route path="/threads/:id" element={<ThreadDetailPage />} />
         <Route path="/leaderboards" element={<LeaderboardsPage />} />
         <Route path="/*" element={<FallbackPage />} />
       </Routes>
