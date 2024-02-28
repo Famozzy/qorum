@@ -19,17 +19,13 @@ export const api = (() => {
     baseURL: API_BASE_URL
   })
 
-  const _axiosWithAuth = ({ url, method, data, headers }) => {
-    return _axios({
-      url,
-      method,
-      data,
-      headers: {
-        ...headers,
-        Authorization: `Bearer ${getAccessToken()}`
-      }
-    })
-  }
+  _axios.interceptors.request.use((config) => {
+    const token = getAccessToken()
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  })
 
   const register = async ({ name, email, password }) => {
     const { data: response } = await _axios.post('/register', {
@@ -61,10 +57,7 @@ export const api = (() => {
   }
 
   const getUserOwnProfile = async () => {
-    const { data: response } = await _axiosWithAuth({
-      url: '/users/me',
-      method: 'get'
-    })
+    const { data: response } = await _axios.get('/users/me')
 
     const { data, message, status } = response
     if (status === 'error') {
@@ -76,10 +69,7 @@ export const api = (() => {
   }
 
   const getAllUsers = async () => {
-    const { data: response } = await _axiosWithAuth({
-      url: '/users',
-      method: 'get'
-    })
+    const { data: response } = await _axios.get('/users')
 
     const { data, message, status } = response
     if (status === 'error') {
@@ -91,14 +81,10 @@ export const api = (() => {
   }
 
   const createThread = async ({ title, body, category }) => {
-    const { data: response } = await _axiosWithAuth({
-      url: '/threads',
-      method: 'post',
-      data: {
-        title,
-        body,
-        category
-      }
+    const { data: response } = await _axios.post('/threads', {
+      title,
+      body,
+      category
     })
 
     const { data, message, status } = response
@@ -135,12 +121,8 @@ export const api = (() => {
   }
 
   const createComment = async ({ threadId, content }) => {
-    const { data: response } = await _axiosWithAuth({
-      url: `/threads/${threadId}/comments`,
-      method: 'post',
-      data: {
-        content
-      }
+    const { data: response } = await _axios.post(`/threads/${threadId}/comments`, {
+      content
     })
 
     const { data, message, status } = response
@@ -153,10 +135,7 @@ export const api = (() => {
   }
 
   const upVoteThread = async (threadId) => {
-    const { data: response } = await _axiosWithAuth({
-      url: `/threads/${threadId}/up-vote`,
-      method: 'post'
-    })
+    const { data: response } = await _axios.post(`/threads/${threadId}/up-vote`)
 
     const { data, message, status } = response
     if (status === 'error') {
@@ -168,10 +147,7 @@ export const api = (() => {
   }
 
   const downVoteThread = async (threadId) => {
-    const { data: response } = await _axiosWithAuth({
-      url: `/threads/${threadId}/down-vote`,
-      method: 'post'
-    })
+    const { data: response } = await _axios.post(`/threads/${threadId}/down-vote`)
 
     const { data, message, status } = response
     if (status === 'error') {
@@ -183,10 +159,7 @@ export const api = (() => {
   }
 
   const unvoteThread = async (threadId) => {
-    const { data: response } = await _axiosWithAuth({
-      url: `/threads/${threadId}/neutral-vote`,
-      method: 'post'
-    })
+    const { data: response } = await _axios.post(`/threads/${threadId}/neutral-vote`)
 
     const { data, message, status } = response
     if (status === 'error') {
@@ -198,10 +171,7 @@ export const api = (() => {
   }
 
   const upVoteComment = async (threadId, commentId) => {
-    const { data: response } = await _axiosWithAuth({
-      url: `/threads/${threadId}/comments/${commentId}/up-vote`,
-      method: 'post'
-    })
+    const { data: response } = await _axios.post(`/threads/${threadId}/comments/${commentId}/up-vote`)
 
     const { data, message, status } = response
     if (status === 'error') {
@@ -213,10 +183,7 @@ export const api = (() => {
   }
 
   const downVoteComment = async (threadId, commentId) => {
-    const { data: response } = await _axiosWithAuth({
-      url: `/threads/${threadId}/comments/${commentId}/down-vote`,
-      method: 'post'
-    })
+    const { data: response } = await _axios.post(`/threads/${threadId}/comments/${commentId}/down-vote`)
 
     const { data, message, status } = response
     if (status === 'error') {
@@ -228,11 +195,7 @@ export const api = (() => {
   }
 
   const unvoteComment = async (threadId, commentId) => {
-    const { data: response } = await _axiosWithAuth({
-      url: `/threads/${threadId}/comments/${commentId}/neutral-vote`,
-      method: 'post'
-    })
-
+    const { data: response } = await _axios.post(`/threads/${threadId}/comments/${commentId}/neutral-vote`)
     const { data, message, status } = response
     if (status === 'error') {
       throw new Error(message)
