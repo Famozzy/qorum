@@ -8,6 +8,8 @@ import LeaderboardsPage from './pages/LeaderboardsPage'
 import { asyncPreloadProcess } from './states/isPreload/action'
 import CreateThreadPage from './pages/CreateThreadPage'
 import ThreadDetailPage from './pages/ThreadDetailPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 function App() {
   const { authUser, isPreload } = useSelector((state) => state)
@@ -29,8 +31,8 @@ function App() {
           <Route path="/threads/new" element={<CreateThreadPage />} />
         ) : (
           <>
-            <Route path="/login" element={<h1>Login</h1>} />
-            <Route path="/register" element={<h1>Register</h1>} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </>
         )}
         <Route path="/threads/:id" element={<ThreadDetailPage />} />

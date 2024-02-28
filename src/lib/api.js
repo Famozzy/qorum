@@ -34,10 +34,10 @@ export const api = (() => {
     })
 
     const { data, message, status } = response
-    if (status === 'success') {
+    if (status === 'error') {
       throw new Error(message)
     }
-
+    console.log(response)
     const { user } = data
     return user
   }
@@ -49,10 +49,9 @@ export const api = (() => {
     })
 
     const { data, message, status } = response
-    if (status === 'success') {
+    if (status === 'error') {
       throw new Error(message)
     }
-
     const { token } = data
     return token
   }

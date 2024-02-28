@@ -15,12 +15,14 @@ function receiveUsers(users) {
 }
 
 function asyncRegisterUser({ name, email, password }) {
-  return async (dispatch) => {
+  return async () => {
     try {
       await api.register({ name, email, password })
-      dispatch(receiveUsers())
+      toast.success('successfully registered')
+      return { error: false }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.response.data.message)
+      return { error: true }
     }
   }
 }

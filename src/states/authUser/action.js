@@ -23,11 +23,13 @@ function asyncSetAuthUser({ email, password }) {
   return async (dispatch) => {
     try {
       const accessToken = await api.login({ email, password })
+      console.log(accessToken)
       api.putAccessToken(accessToken)
       const user = await api.getUserOwnProfile()
       dispatch(setAuthUser(user))
+      toast.success('Logged in')
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.response.data.message)
     }
   }
 }
