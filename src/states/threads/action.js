@@ -1,5 +1,6 @@
 import { api } from '../../lib/api'
 import toast from 'react-hot-toast'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const actionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -65,12 +66,14 @@ function downVoteThread({ threadId, userId }) {
 
 function asyncReceiveThreads() {
   return async (dispatch) => {
+    dispatch(showLoading())
     try {
       const threads = await api.get('/threads')
       dispatch(receiveThreads(threads))
     } catch (error) {
       toast.error(error.message)
     }
+    dispatch(hideLoading())
   }
 }
 
@@ -81,6 +84,7 @@ function asyncUpvoteThread(threadId) {
       toast.error('You need to login first')
       return
     }
+    dispatch(showLoading())
     dispatch(upVoteThread({ threadId, userId: authUser.id }))
     try {
       await api.upVoteThread(threadId)
@@ -88,6 +92,7 @@ function asyncUpvoteThread(threadId) {
       toast.error(error.message)
       dispatch(unvoteThread({ threadId, userId: authUser.id }))
     }
+    dispatch(hideLoading())
   }
 }
 
@@ -98,6 +103,7 @@ function asyncDownvoteThread(threadId) {
       toast.error('You need to login first')
       return
     }
+    dispatch(showLoading())
     dispatch(downVoteThread({ threadId, userId: authUser.id }))
     try {
       await api.downVoteThread(threadId)
@@ -105,12 +111,14 @@ function asyncDownvoteThread(threadId) {
       toast.error(error.message)
       dispatch(unvoteThread({ threadId, userId: authUser.id }))
     }
+    dispatch(hideLoading())
   }
 }
 
 function asyncUnvoteThread({ threadId, previousVoteType }) {
   return async (dispatch, getState) => {
     const { authUser } = getState()
+    dispatch(showLoading())
     dispatch(unvoteThread({ threadId, userId: authUser.id }))
     try {
       await api.unvoteThread(threadId)
@@ -123,6 +131,7 @@ function asyncUnvoteThread({ threadId, previousVoteType }) {
         dispatch(downVoteThread({ threadId, userId: authUser.id }))
       }
     }
+    dispatch(hideLoading())
   }
 }
 

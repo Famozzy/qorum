@@ -1,5 +1,6 @@
 import { api } from '../../lib/api'
 import toast from 'react-hot-toast'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const actionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
@@ -102,6 +103,7 @@ function unVoteThreadDetailComment({ commentId, userId }) {
 
 function asyncReceiveThreadDetail(threadId) {
   return async (dispatch) => {
+    dispatch(showLoading())
     try {
       const threadDetail = await api.getThreadDetail(threadId)
       dispatch(receiveThreadDetail(threadDetail))
@@ -112,6 +114,7 @@ function asyncReceiveThreadDetail(threadId) {
         toast.error(error.message)
       }
     }
+    dispatch(hideLoading())
   }
 }
 
@@ -122,6 +125,7 @@ function asyncUpVoteThreadDetail(threadId) {
       toast.error('You need to login first')
       return
     }
+    dispatch(showLoading())
     dispatch(upVoteThreadDetail(authUser.id))
     try {
       await api.upVoteThread(threadId)
@@ -129,6 +133,7 @@ function asyncUpVoteThreadDetail(threadId) {
       toast.error(error.message)
       dispatch(unVoteThreadDetail({ userId: authUser.id, previousVoteType: voteType.UPVOTE }))
     }
+    dispatch(hideLoading())
   }
 }
 
@@ -139,6 +144,7 @@ function asyncDownVoteThreadDetail(threadId) {
       toast.error('You need to login first')
       return
     }
+    dispatch(showLoading())
     dispatch(downVoteThreadDetail(authUser.id))
     try {
       await api.downVoteThread(threadId)
@@ -146,12 +152,14 @@ function asyncDownVoteThreadDetail(threadId) {
       toast.error(error.message)
       dispatch(unVoteThreadDetail({ userId: authUser.id, previousVoteType: voteType.DOWNVOTE }))
     }
+    dispatch(hideLoading())
   }
 }
 
 function asyncUnVoteThreadDetail({ threadId, previousVoteType }) {
   return async (dispatch, getState) => {
     const { authUser } = getState()
+    dispatch(showLoading())
     dispatch(unVoteThreadDetail(authUser.id))
     try {
       await api.unvoteThread(threadId)
@@ -164,11 +172,13 @@ function asyncUnVoteThreadDetail({ threadId, previousVoteType }) {
         dispatch(downVoteThreadDetail(authUser.id))
       }
     }
+    dispatch(hideLoading())
   }
 }
 
 function asyncAddThreadDetailComment({ threadId, content }) {
   return async (dispatch) => {
+    dispatch(showLoading())
     try {
       const newComment = await api.createComment({ threadId, content })
       dispatch(addThreadDetailComment(newComment))
@@ -176,6 +186,7 @@ function asyncAddThreadDetailComment({ threadId, content }) {
     } catch (error) {
       toast.error(error.message)
     }
+    dispatch(hideLoading())
   }
 }
 
@@ -186,6 +197,7 @@ function asyncUpVoteThreadDetailComment({ threadId, commentId }) {
       toast.error('You need to login first')
       return
     }
+    dispatch(showLoading())
     dispatch(upVoteThreadDetailComment({ commentId, userId: authUser.id }))
     try {
       await api.upVoteComment(threadId, commentId)
@@ -193,6 +205,7 @@ function asyncUpVoteThreadDetailComment({ threadId, commentId }) {
       toast.error(error.message)
       dispatch(unVoteThreadDetailComment({ commentId, userId: authUser.id }))
     }
+    dispatch(hideLoading())
   }
 }
 
@@ -203,6 +216,7 @@ function asyncDownVoteThreadDetailComment({ threadId, commentId }) {
       toast.error('You need to login first')
       return
     }
+    dispatch(showLoading())
     dispatch(downVoteThreadDetailComment({ commentId, userId: authUser.id }))
     try {
       await api.downVoteComment(threadId, commentId)
@@ -210,12 +224,14 @@ function asyncDownVoteThreadDetailComment({ threadId, commentId }) {
       toast.error(error.message)
       dispatch(unVoteThreadDetailComment({ commentId, userId: authUser.id }))
     }
+    dispatch(hideLoading())
   }
 }
 
 function asyncUnVoteThreadDetailComment({ threadId, commentId, previousVoteType }) {
   return async (dispatch, getState) => {
     const { authUser } = getState()
+    dispatch(showLoading())
     dispatch(unVoteThreadDetailComment({ commentId, userId: authUser.id }))
     try {
       await api.unvoteComment(threadId, commentId)
@@ -228,6 +244,7 @@ function asyncUnVoteThreadDetailComment({ threadId, commentId, previousVoteType 
         dispatch(downVoteThreadDetailComment({ commentId, userId: authUser.id }))
       }
     }
+    dispatch(hideLoading())
   }
 }
 

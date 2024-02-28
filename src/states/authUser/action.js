@@ -1,5 +1,6 @@
 import { api } from '../../lib/api'
 import toast from 'react-hot-toast'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const actionType = {
   SET_AUTH_USER: 'SET_AUTH_USER',
@@ -21,24 +22,28 @@ function unsetAuthUser() {
 
 function asyncSetAuthUser({ email, password }) {
   return async (dispatch) => {
+    dispatch(showLoading())
     try {
       const accessToken = await api.login({ email, password })
-      console.log(accessToken)
       api.putAccessToken(accessToken)
       const user = await api.getUserOwnProfile()
       dispatch(setAuthUser(user))
       toast.success('Logged in')
     } catch (error) {
+      console.error(error)
       toast.error(error.response.data.message)
     }
+    dispatch(hideLoading())
   }
 }
 
 function asyncUnsetAuthUser() {
   return (dispatch) => {
+    dispatch(showLoading())
     api.removeAccessToken()
     dispatch(unsetAuthUser())
     toast.success('Logged out')
+    dispatch(hideLoading())
   }
 }
 

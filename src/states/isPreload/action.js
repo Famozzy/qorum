@@ -1,5 +1,6 @@
 import { api } from '../../lib/api'
 import { setAuthUser } from '../authUser/action'
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const actionType = {
   SET_IS_PRELOAD: 'SET_IS_PRELOAD'
@@ -16,6 +17,7 @@ function setIsPreload(isPreload) {
 
 function asyncPreloadProcess() {
   return async (dispatch) => {
+    dispatch(showLoading())
     try {
       const authUser = await api.getUserOwnProfile()
       dispatch(setAuthUser(authUser))
@@ -24,6 +26,7 @@ function asyncPreloadProcess() {
     } finally {
       dispatch(setIsPreload(false))
     }
+    dispatch(hideLoading())
   }
 }
 
