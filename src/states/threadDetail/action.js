@@ -106,7 +106,11 @@ function asyncReceiveThreadDetail(threadId) {
       const threadDetail = await api.getThreadDetail(threadId)
       dispatch(receiveThreadDetail(threadDetail))
     } catch (error) {
-      toast.error(error.message)
+      if (error.response.status === 404) {
+        toast.error('Thread not found')
+      } else {
+        toast.error(error.message)
+      }
     }
   }
 }
