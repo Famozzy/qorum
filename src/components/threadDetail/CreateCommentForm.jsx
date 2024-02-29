@@ -1,8 +1,8 @@
 import React, { useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { asyncAddThreadDetailComment } from '../states/threadDetail/action'
+import { asyncAddThreadDetailComment } from '../../states/threadDetail/action'
 import { Link } from 'react-router-dom'
-import useInput from '../hooks/useInput'
+import useInput from '../../hooks/useInput'
 import PropTypes from 'prop-types'
 
 export default function CreateCommentForm({ threadId }) {

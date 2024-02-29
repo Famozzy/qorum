@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { asyncReceiveThreadDetail, clearThreadDetail } from '../states/threadDetail/action'
-import ThreadDetail from '../components/ThreadDetail'
-import CommentList from '../components/CommentList'
-import CreateCommentForm from '../components/CreateCommentForm'
-import SkeletonThreadDetail from '../components/SkeletonThreadDetail'
+import ThreadDetail from '../components/threadDetail/ThreadDetail'
+import CommentList from '../components/threadDetail/CommentList'
+import CreateCommentForm from '../components/threadDetail/CreateCommentForm'
+import SkeletonThreadDetail from '../components/skeleton/SkeletonThreadDetail'
 
 export default function ThreadDetailPage() {
   const { id } = useParams()

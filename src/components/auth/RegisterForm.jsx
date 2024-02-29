@@ -1,8 +1,8 @@
 import React from 'react'
-import Input from './Input'
-import useInput from '../hooks/useInput'
+import Input from '../Input'
+import useInput from '../../hooks/useInput'
 import { useDispatch } from 'react-redux'
-import { asyncRegisterUser } from '../states/users/action'
+import { asyncRegisterUser } from '../../states/users/action'
 import { useNavigate } from 'react-router-dom'
 
 export default function RegisterForm() {

@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import parse from 'html-react-parser'
 import { MessageSquareReplyIcon } from 'lucide-react'
-import { postedAt } from '../lib'
-import { asyncUpvoteThread, asyncDownvoteThread, asyncUnvoteThread } from '../states/threads/action'
+import { postedAt } from '../../lib'
+import { asyncUpvoteThread, asyncDownvoteThread, asyncUnvoteThread } from '../../states/threads/action'
 import toast from 'react-hot-toast'
-import VoteButton from './VoteButton'
+import VoteButton from '../VoteButton'
 import PropTypes from 'prop-types'
 
 export default function ThreadItem({

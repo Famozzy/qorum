@@ -1,5 +1,5 @@
 import React from 'react'
-import SkeletonThreadList from './SkeletonThreadList'
+import SkeletonThreadList from '../skeleton/SkeletonThreadList'
 import ThreadItem from './ThreadItem'
 import PropTypes from 'prop-types'
 

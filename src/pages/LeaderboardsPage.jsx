@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { asyncReceiveLeaderboards } from '../states/leaderboards/action'
-import LeaderboardTopThree from '../components/LeaderboardTopThree'
-import LeaderboardRemaining from '../components/LeaderboardRemaining'
+import LeaderboardTopThree from '../components/leaderboard/LeaderboardTopThree'
+import LeaderboardRemaining from '../components/leaderboard/LeaderboardRemaining'
 
 export default function LeaderboardsPage() {
   const dispatch = useDispatch()

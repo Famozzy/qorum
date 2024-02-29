@@ -4,10 +4,10 @@ import {
   asyncUpVoteThreadDetailComment,
   asyncDownVoteThreadDetailComment,
   asyncUnVoteThreadDetailComment
-} from '../states/threadDetail/action'
-import { postedAt } from '../lib'
+} from '../../states/threadDetail/action'
+import { postedAt } from '../../lib'
 import parser from 'html-react-parser'
-import VoteButton from './VoteButton'
+import VoteButton from '../VoteButton'
 import PropTypes from 'prop-types'
 
 export default function CommentItem({ threadId, owner, commentId, content, createdAt, upVotesBy, downVotesBy }) {

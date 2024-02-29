@@ -4,10 +4,10 @@ import {
   asyncUpVoteThreadDetail,
   asyncDownVoteThreadDetail,
   asyncUnVoteThreadDetail
-} from '../states/threadDetail/action'
+} from '../../states/threadDetail/action'
 import parser from 'html-react-parser'
-import { postedAt } from '../lib'
-import VoteButton from './VoteButton'
+import { postedAt } from '../../lib'
+import VoteButton from '../VoteButton'
 import { MessageSquareReplyIcon } from 'lucide-react'
 import PropTypes from 'prop-types'
 

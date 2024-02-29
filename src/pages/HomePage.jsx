@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useSelectedCategory from '../hooks/useSelectedCategory'
 import { asyncPopulateData } from '../states/shared/action'
-import ThreadList from '../components/ThreadList'
-import CategoryList from '../components/CategoryList'
+import ThreadList from '../components/home/ThreadList'
+import CategoryList from '../components/home/CategoryList'
 
 export default function HomePage() {
   const { threads, users, categories, authUser } = useSelector((state) => state)

@@ -1,8 +1,8 @@
 import React from 'react'
-import useInput from '../hooks/useInput'
-import Input from './Input'
+import useInput from '../../hooks/useInput'
+import Input from '../Input'
 import { useDispatch } from 'react-redux'
-import { asyncSetAuthUser } from '../states/authUser/action'
+import { asyncSetAuthUser } from '../../states/authUser/action'
 import { Link } from 'react-router-dom'
 
 export default function LoginForm() {

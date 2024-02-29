@@ -1,9 +1,9 @@
 import React from 'react'
-import AppHeader from './components/AppHeader'
-import AppNavigation from './components/AppNavigation'
-import AppToaster from './components/AppToaster'
+import AppHeader from './components/app/AppHeader'
+import AppNavigation from './components/app/AppNavigation'
+import AppToaster from './components/app/AppToaster'
 import PropTypes from 'prop-types'
-import AppLoadingBar from './components/AppLoadingBar'
+import AppLoadingBar from './components/app/AppLoadingBar'
 
 export default function Layout({ children }) {
   return (

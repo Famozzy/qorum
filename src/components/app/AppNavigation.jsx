@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { HomeIcon, BarChart2Icon, LogInIcon, LogOutIcon, SquarePenIcon } from 'lucide-react'
-import NavigationButton from './NavigationButton'
-import { asyncUnsetAuthUser } from '../states/authUser/action'
+import NavigationButton from '../NavigationButton'
+import { asyncUnsetAuthUser } from '../../states/authUser/action'
 
 export default function AppNavigation() {
   const authUser = useSelector((state) => state.authUser)

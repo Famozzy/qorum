@@ -1,6 +1,6 @@
 import React from 'react'
-import useSelectedCategory from '../hooks/useSelectedCategory'
-import SkeletonCategoryList from './SkeletonCategoryList'
+import useSelectedCategory from '../../hooks/useSelectedCategory'
+import SkeletonCategoryList from '../skeleton/SkeletonCategoryList'
 import CategoryItem from './CategoryItem'
 import PropTypes from 'prop-types'
 

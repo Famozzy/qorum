@@ -1,7 +1,7 @@
 import React from 'react'
-import { cn } from '../lib'
+import { cn } from '../../lib'
 import { useSelector } from 'react-redux'
-import SkeletonRemaining from './SkeletonRemaining'
+import SkeletonRemaining from '../skeleton/SkeletonRemaining'
 import PropTypes from 'prop-types'
 
 export default function LeaderboardRemaining({ leaderboards }) {
