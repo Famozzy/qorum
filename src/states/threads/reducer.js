@@ -4,7 +4,7 @@ export default function threadsReducer(threads = [], action = {}) {
   switch (action.type) {
     case actionType.RECEIVE_THREADS:
       return action.payload.threads
-    case actionType.CREATE_THREAD:
+    case actionType.ADD_THREAD:
       return [action.payload.thread, ...threads]
     case actionType.UPVOTE_THREAD:
       return threads.map((thread) => {
