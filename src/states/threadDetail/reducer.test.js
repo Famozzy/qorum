@@ -183,7 +183,6 @@ describe('threadDetailReducer function', () => {
     }
 
     const nextState = threadDetailReducer(initialState, action)
-    console.log(nextState)
 
     expect(nextState).toEqual({
       ...initialState,

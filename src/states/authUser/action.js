@@ -30,7 +30,6 @@ function asyncSetAuthUser({ email, password }) {
       dispatch(setAuthUser(user))
       toast.success('Logged in')
     } catch (error) {
-      console.error(error)
       toast.error(error.response.data.message)
     }
     dispatch(hideLoading())
