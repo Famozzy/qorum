@@ -32,19 +32,16 @@ describe('asyncReceiveLeaderboards thunk', () => {
 
   beforeEach(() => {
     api._getLeaderboards = api.getLeaderboards
-    toast._error = toast.error
   })
 
   afterEach(() => {
-    vi.restoreAllMocks()
+    dispatch.mockClear()
     api.getLeaderboards = api._getLeaderboards
-    toast.error = toast._error
     delete api._getLeaderboards
-    delete toast._error
   })
 
   it('should dispatch actions correctly when data is fetched successfully', async () => {
-    api.getLeaderboards = vi.fn().mockResolvedValue(fakeleaderboardsResponse)
+    api.getLeaderboards = () => Promise.resolve(fakeleaderboardsResponse)
 
     await asyncReceiveLeaderboards()(dispatch)
 
@@ -54,13 +51,13 @@ describe('asyncReceiveLeaderboards thunk', () => {
   })
 
   it('should dispatch actions and toast error correctly when data fetching failed', async () => {
-    api.getLeaderboards = vi.fn().mockRejectedValue(fakeErrorResponse)
-    toast.error = vi.fn()
+    api.getLeaderboards = () => Promise.reject(fakeErrorResponse)
+    const spy = vi.spyOn(toast, 'error')
 
     await asyncReceiveLeaderboards()(dispatch)
 
     expect(dispatch).toHaveBeenCalledWith(showLoading())
     expect(dispatch).toHaveBeenCalledWith(hideLoading())
-    expect(toast.error).toHaveBeenCalledWith('Failed to fetch leaderboards')
+    expect(spy).toHaveBeenCalledWith(fakeErrorResponse.message)
   })
 })

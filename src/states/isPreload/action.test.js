@@ -11,6 +11,8 @@ const fakeSuccessResponse = {
   avatar: 'https://generated-image-url.jpg'
 }
 
+const fakeErrorResponse = new Error('Failed to fetch user profile')
+
 describe('asyncPreloadProcess thunk', () => {
   const dispatch = vi.fn()
 
@@ -19,13 +21,13 @@ describe('asyncPreloadProcess thunk', () => {
   })
 
   afterEach(() => {
-    vi.restoreAllMocks()
+    dispatch.mockClear()
     api.getUserOwnProfile = api._getUserOwnProfile
     delete api._getUserOwnProfile
   })
 
   it('should dispatch actions correctly when getUserOwnProfile is successful', async () => {
-    api.getUserOwnProfile = vi.fn().mockResolvedValue(fakeSuccessResponse)
+    api.getUserOwnProfile = () => Promise.resolve(fakeSuccessResponse)
 
     await asyncPreloadProcess()(dispatch)
 
@@ -36,7 +38,7 @@ describe('asyncPreloadProcess thunk', () => {
   })
 
   it('should dispatch actions correctly when getUserOwnProfile is failed', async () => {
-    api.getUserOwnProfile = vi.fn().mockRejectedValue(new Error('fail'))
+    api.getUserOwnProfile = () => Promise.reject(fakeErrorResponse)
 
     await asyncPreloadProcess()(dispatch)
 
