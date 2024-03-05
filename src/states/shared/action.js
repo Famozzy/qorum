@@ -27,8 +27,7 @@ function asyncCreateThreadAndCategory({ title, body, category }) {
   return async (dispatch, getState) => {
     dispatch(showLoading())
     const { categories } = getState()
-    const isCategoryExist = categories.includes((_category) => _category === category)
-
+    const isCategoryExist = categories.includes(category)
     try {
       const newThread = await api.createThread({ title, body, category })
       if (!isCategoryExist) {
