@@ -1,11 +1,19 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { asyncSetAuthUser } from '../../states/authUser/action'
 import LoginForm from '../components/auth/LoginForm'
 
 export default function LoginPage() {
+  const dispatch = useDispatch()
+
+  const login = ({ email, password }) => {
+    dispatch(asyncSetAuthUser({ email, password }))
+  }
+
   return (
     <section className="mt-8">
       <h1 className="text-3xl font-bold text-center mb-4">Login</h1>
-      <LoginForm />
+      <LoginForm login={login} />
     </section>
   )
 }

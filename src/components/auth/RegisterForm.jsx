@@ -1,17 +1,12 @@
 import React from 'react'
 import Input from '../Input'
 import useInput from '../../hooks/useInput'
-import { useDispatch } from 'react-redux'
-import { asyncRegisterUser } from '../../states/users/action'
-import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default function RegisterForm() {
+export default function RegisterForm({ register }) {
   const [name, onNameChange] = useInput()
   const [email, onEmailChange] = useInput()
   const [password, onPasswordChange] = useInput()
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const fields = [
     {
@@ -42,11 +37,7 @@ export default function RegisterForm() {
 
   const submitHandler = (ev) => {
     ev.preventDefault()
-    dispatch(asyncRegisterUser({ name, email, password })).then((res) => {
-      if (!res.error) {
-        navigate('/login')
-      }
-    })
+    register({ name, email, password })
   }
 
   return (
@@ -69,4 +60,8 @@ export default function RegisterForm() {
       </button>
     </form>
   )
+}
+
+RegisterForm.propTypes = {
+  register: PropTypes.func.isRequired
 }

@@ -1,18 +1,16 @@
 import React from 'react'
 import useInput from '../../hooks/useInput'
 import Input from '../Input'
-import { useDispatch } from 'react-redux'
-import { asyncSetAuthUser } from '../../states/authUser/action'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-export default function LoginForm() {
+export default function LoginForm({ login }) {
   const [email, onEmailChange] = useInput('')
   const [password, onPasswordChange] = useInput('')
-  const dispatch = useDispatch()
 
   const submitHandler = (ev) => {
     ev.preventDefault()
-    dispatch(asyncSetAuthUser({ email, password }))
+    login({ email, password })
   }
 
   const fields = [
@@ -59,4 +57,8 @@ export default function LoginForm() {
       </button>
     </form>
   )
+}
+
+LoginForm.propTypes = {
+  login: PropTypes.func.isRequired
 }
