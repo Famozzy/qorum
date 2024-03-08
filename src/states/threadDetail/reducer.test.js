@@ -1,3 +1,18 @@
+/**
+ * skenario testing
+ *
+ * - threadDetailReducer function
+ *  - should return the initial state when no action is passed
+ *  - should return the thread detail when RECEIVE_THREAD_DETAIL action is passed
+ *  - should return null when CLEAR_THREAD_DETAIL action is passed
+ *  - should return the thread detail with user id in upVotesBy when UPVOTE_THREAD_DETAIL action is passed
+ *  - should return the thread detail with user id in downVotesBy when DOWNVOTE_THREAD_DETAIL action is passed
+ *  - should return the thread detail with user id removed from upVotesBy or downVotesBy when UNVOTE_THREAD_DETAIL action is passed
+ *  - should return the thread detail with added comment when ADD_THREAD_DETAIL_COMMENT action is passed
+ *  - should return the thread detail with user id in comment upVotesBy when UPVOTE_THREAD_DETAIL_COMMENT action is passed
+ *  - should return the thread detail with user id in comment downVotesBy when DOWNVOTE_THREAD_DETAIL_COMMENT action is passed
+ *  - should return the thread detail with user id removed from comment upVotesBy or downVotesBy when UNVOTE_THREAD_DETAIL_COMMENT action is passed
+ */
 import { describe, it, expect } from 'vitest'
 import threadDetailReducer from './reducer'
 

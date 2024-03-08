@@ -1,3 +1,11 @@
+/**
+ * skenario testing
+ *
+ * - leaderboardsReducer function
+ *  - should return the initial state when no action is passed
+ *  - should return the leaderboards' data when RECEIVE_LEADERBOARDS action is passed
+ *  - should return an empty array when CLEAR_LEADERBOARDS action is passed
+ */
 import { describe, it, expect } from 'vitest'
 import leaderboardsReducer from './reducer'
 

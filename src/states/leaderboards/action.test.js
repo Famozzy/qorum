@@ -1,3 +1,10 @@
+/**
+ * skenario testing
+ *
+ * - asyncReceiveLeaderboards thunk
+ *  - should dispatch actions correctly when data is fetched successfully
+ *  - should dispatch actions and toast error correctly when data fetching failed
+ */
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { api } from '../../lib/api'
 import { asyncReceiveLeaderboards, receiveLeaderboards } from './action'

@@ -1,3 +1,10 @@
+/**
+ * skenario testing
+ *
+ * - isPreloadReducer function
+ *  - should return the initial state when no action is passed
+ *  - should return the new isPreload value when SET_IS_PRELOAD action is passed
+ */
 import { describe, it, expect } from 'vitest'
 import isPreloadReducer from './reducer'
 

@@ -3,6 +3,7 @@
  * - asyncPopulateData thunk
  *  - should dispatch action correctly when fetching data is successful
  *  - should dispatch action correctly when fetching data is failed
+ *
  * - asyncCreateThreadAndCategory thunk
  *  - should dispatch action correctly when creating thread with existing category is successful
  *  - should dispatch action correctly when creating thread with new category is successful

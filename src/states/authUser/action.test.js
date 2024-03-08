@@ -1,3 +1,13 @@
+/**
+ * skenario testing
+ *
+ * - asyncSetAuthUser thunk
+ *  - should dispatch actions and toast success correctly when login is successful
+ *  - should dispatch actions and toast error correctly when login is failed
+ *
+ * - asyncUnsetAuthUser thunk
+ *  - should dispatch actions, remove access token, and toast success correctly when user is logged out
+ */
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { api } from '../../lib/api'
 import { asyncSetAuthUser, asyncUnsetAuthUser, setAuthUser, unsetAuthUser } from './action'

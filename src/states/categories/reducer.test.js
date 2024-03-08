@@ -1,3 +1,11 @@
+/**
+ * skenario testing
+ *
+ * - categoriesReducer function
+ *  - should return the initial state when no action is passed
+ *  - should return the categories data when RECEIVE_CATEGORIES action is passed
+ *  - should return the categories' data with the new category when ADD_CATEGORY action is passed
+ */
 import { describe, it, expect } from 'vitest'
 import categoriesReducer from './reducer'
 

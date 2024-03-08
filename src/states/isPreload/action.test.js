@@ -1,3 +1,10 @@
+/**
+ * skenario testing
+ *
+ * - asyncPreloadProcess thunk
+ *  - should dispatch actions correctly when getUserOwnProfile is successful
+ *  - should dispatch actions correctly when getUserOwnProfile is failed
+ */
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { api } from '../../lib/api'
 import { asyncPreloadProcess, setIsPreload } from './action'

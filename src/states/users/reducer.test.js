@@ -1,3 +1,10 @@
+/**
+ * skenario testing
+ *
+ * - usersReducer function
+ *  - should return the initial state when no action is passed
+ *  - should return the users data when RECEIVE_USERS action is passed
+ */
 import { describe, it, expect } from 'vitest'
 import usersReducer from './reducer'
 

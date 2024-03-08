@@ -1,3 +1,16 @@
+/**
+ * skenario testing
+ *
+ * - threadsReducer function
+ *  - should return the initial state when no action is passed
+ *  - should return the threads' data when RECEIVE_THREADS action is passed
+ *  - should return the threads' data with new thread when ADD_THREAD action is passed
+ *  - should return the threads with user id in upVotesBy when UPVOTE_THREAD action is passed
+ *  - should return the threads with user id is removed from downVotesBy when UPVOTE_THREAD action is passed
+ *  - should return the threads with user id in downVotesBy when DOWNVOTE_THREAD action is passed
+ *  - should return the threads with user id is removed from upVotesBy when DOWNVOTE_THREAD action is passed
+ *  - should return the threads with user id is removed from upVotesBy or downVotesBy when UNVOTE_THREAD action is passed
+ */
 import { describe, it, expect } from 'vitest'
 import threadsReducer from './reducer'
 

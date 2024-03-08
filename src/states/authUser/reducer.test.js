@@ -1,3 +1,11 @@
+/**
+ * skenario testing
+ *
+ * - authUserReducer function
+ *  - should return the initial state when no action is passed
+ *  - should return the user's data when SET_AUTH_USER action is passed
+ *  - should return null when UNSET_AUTH_USER action is passed
+ */
 import { describe, it, expect } from 'vitest'
 import authUserReducer from './reducer'
 
