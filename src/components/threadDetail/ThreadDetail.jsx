@@ -57,12 +57,19 @@ export default function ThreadDetail({
       </div>
       <div className="flex mt-4 gap-x-4 text-sm text-neutral-content font-medium">
         <div className="flex gap-x-1">
-          <VoteButton type="up" onClick={onUpVoteButtonClick} isVoted={isUpVoted} voteCount={upVotesBy.length} />
+          <VoteButton
+            type="up"
+            onClick={onUpVoteButtonClick}
+            isVoted={isUpVoted}
+            voteCount={upVotesBy.length}
+            disabled={!authUser}
+          />
           <VoteButton
             type="down"
             onClick={onDownVoteButtonClick}
             isVoted={isDownVoted}
             voteCount={downVotesBy.length}
+            disabled={!authUser}
           />
         </div>
         <span className="flex items-center gap-x-1 opacity-50">
