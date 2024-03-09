@@ -41,6 +41,7 @@ export default function CreateCommentForm({ threadId }) {
         ref={contentRef}
         onInput={onContentChange}
         contentEditable
+        suppressContentEditableWarning
       ></div>
       <button onClick={onAddComment} className="btn btn-sm btn-primary w-1/3">
         Post

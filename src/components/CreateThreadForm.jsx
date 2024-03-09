@@ -48,6 +48,7 @@ export default function CreateThreadForm() {
         className="min-h-28 outline outline-1 outline-neutral-content/10 rounded-lg text-neutral-content/70 overflow-auto p-1.5 focus:outline-primary"
         onInput={onBodyChange}
         contentEditable
+        suppressContentEditableWarning
       ></div>
       <button type="submit" className="btn btn-primary btn-sm text-xs px-8 mt-4 absolute right-0 -top-14">
         Post
