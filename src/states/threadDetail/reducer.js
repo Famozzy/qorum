@@ -27,7 +27,7 @@ export default function threadDetailReducer(threadDetail = null, action = {}) {
     case actionType.ADD_THREAD_DETAIL_COMMENT:
       return {
         ...threadDetail,
-        comments: [action.payload.comment, ...threadDetail.comments]
+        comments: [...threadDetail.comments, action.payload.comment]
       }
     case actionType.UPVOTE_THREAD_DETAIL_COMMENT:
       return {
