@@ -8,17 +8,22 @@ import leaderboardsReducer from './leaderboards/reducer'
 import usersReducer from './users/reducer'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
-const store = configureStore({
-  reducer: {
-    authUser: authUserReducer,
-    users: usersReducer,
-    isPreload: isPreloadReducer,
-    threads: threadsReducer,
-    categories: categoriesReducer,
-    threadDetail: threadDetailReducer,
-    leaderboards: leaderboardsReducer,
-    loadingBar: loadingBarReducer
-  }
-})
+export const setupStore = (preloadedState) => {
+  return configureStore({
+    reducer: {
+      authUser: authUserReducer,
+      users: usersReducer,
+      isPreload: isPreloadReducer,
+      threads: threadsReducer,
+      categories: categoriesReducer,
+      threadDetail: threadDetailReducer,
+      leaderboards: leaderboardsReducer,
+      loadingBar: loadingBarReducer
+    },
+    preloadedState
+  })
+}
+
+const store = setupStore()
 
 export default store
