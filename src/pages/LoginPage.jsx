@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { asyncSetAuthUser } from '../../states/authUser/action'
+import { asyncSetAuthUser } from '../states/authUser/action'
 import LoginForm from '../components/auth/LoginForm'
 
 export default function LoginPage() {
