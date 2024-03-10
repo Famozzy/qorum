@@ -14,7 +14,7 @@ import { screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import matchers from '@testing-library/jest-dom/matchers'
 import ThreadDetail from './ThreadDetail'
-import { postedAt } from '../../lib/utils'
+import { postedAt } from '../../lib'
 import { renderWithProviders } from '../../lib/test-utils'
 
 expect.extend(matchers)
