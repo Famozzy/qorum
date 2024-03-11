@@ -9,7 +9,7 @@ module.exports = {
       version: 'detect'
     }
   },
-  extends: ['standard', 'plugin:react/recommended', 'plugin:storybook/recommended'],
+  extends: ['standard', 'plugin:cypress/recommended', 'plugin:react/recommended', 'plugin:storybook/recommended'],
   overrides: [
     {
       env: {
@@ -36,5 +36,6 @@ module.exports = {
       }
     ],
     'multiline-ternary': 'off'
-  }
+  },
+  ignorePatterns: ['dist/', 'node_modules/']
 }

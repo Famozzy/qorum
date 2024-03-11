@@ -31,7 +31,7 @@ describe('Login spec', () => {
   })
 
   it('should display toast error when email or password is wrong', () => {
-    cy.get('input[name="email"]').type('testuser@example.com')
+    cy.get('input[name="email"]').type(inputData.email)
     cy.get('input[name="password"]').type('wrongpassword')
     cy.get('button[type="submit"]').click()
 
@@ -40,8 +40,8 @@ describe('Login spec', () => {
   })
 
   it('should display toast success and redirect to home page when login succeeds', () => {
-    cy.get('input[name="email"]').type('testuser@example.com')
-    cy.get('input[name="password"]').type('test4321')
+    cy.get('input[name="email"]').type(inputData.email)
+    cy.get('input[name="password"]').type(inputData.password)
     cy.get('button[type="submit"]').click()
 
     cy.get('.app-toast').should('be.visible')
