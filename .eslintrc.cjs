@@ -9,7 +9,7 @@ module.exports = {
       version: 'detect'
     }
   },
-  extends: ['standard', 'plugin:react/recommended'],
+  extends: ['standard', 'plugin:react/recommended', 'plugin:storybook/recommended'],
   overrides: [
     {
       env: {
