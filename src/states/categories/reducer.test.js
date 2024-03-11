@@ -26,7 +26,7 @@ describe('categoriesReducer function', () => {
     const initialState = []
 
     const action = {
-      type: 'RECEIVE_CATEGORIES',
+      type: 'RECEIVE_CATEGORIE',
       payload: {
         categories: ['Category 1', 'Category 2']
       }
