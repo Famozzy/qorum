@@ -8,7 +8,7 @@ const stories = {
 }
 
 const TemplateStory = (args) => (
-  <Wrapper states={args}>
+  <Wrapper states={{ authUser: args.login }}>
     <AppNavigation />
   </Wrapper>
 )
@@ -17,7 +17,11 @@ const LoggedIn = TemplateStory.bind({})
 const LoggedOut = TemplateStory.bind({})
 
 LoggedIn.args = {
-  authUser: { id: 'user-1' }
+  login: true
+}
+
+LoggedOut.args = {
+  login: false
 }
 
 export { LoggedIn, LoggedOut }
