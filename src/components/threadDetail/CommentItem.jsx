@@ -5,7 +5,7 @@ import {
   asyncDownVoteThreadDetailComment,
   asyncUnVoteThreadDetailComment
 } from '../../states/threadDetail/action'
-import { postedAt } from '../../lib'
+import { postedAt } from '../../lib/utils'
 import parser from 'html-react-parser'
 import VoteButton from '../VoteButton'
 import PropTypes from 'prop-types'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { cn } from '../../lib'
+import { cn } from '../../lib/utils'
 import SkeletonTopThree from '../skeleton/SkeletonTopThree'
 import PropTypes from 'prop-types'
 

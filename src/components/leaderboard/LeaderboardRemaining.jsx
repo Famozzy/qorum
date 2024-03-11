@@ -1,5 +1,5 @@
 import React from 'react'
-import { cn } from '../../lib'
+import { cn } from '../../lib/utils'
 import { useSelector } from 'react-redux'
 import SkeletonRemaining from '../skeleton/SkeletonRemaining'
 import PropTypes from 'prop-types'
