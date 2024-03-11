@@ -7,7 +7,7 @@ export default function AppToaster() {
       position="bottom-center"
       containerClassName="mb-16 lg:mb-4"
       toastOptions={{
-        className: 'bg-neutral text-neutral-content'
+        className: 'app-toast bg-neutral text-neutral-content'
       }}
     />
   )
