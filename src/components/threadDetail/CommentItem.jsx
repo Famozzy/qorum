@@ -38,8 +38,20 @@ export default function CommentItem({ threadId, owner, commentId, content, creat
       </div>
       <p className="text-neutral-content w-full">{parser(content)}</p>
       <div className="flex gap-x-1">
-        <VoteButton type="up" onClick={onUpVoteButtonClick} isVoted={isUpVoted} voteCount={upVotesBy.length} />
-        <VoteButton type="down" onClick={onDownVoteButtonClick} isVoted={isDownVoted} voteCount={downVotesBy.length} />
+        <VoteButton
+          type="up"
+          onClick={onUpVoteButtonClick}
+          isVoted={isUpVoted}
+          voteCount={upVotesBy.length}
+          disabled={!authUser}
+        />
+        <VoteButton
+          type="down"
+          onClick={onDownVoteButtonClick}
+          isVoted={isDownVoted}
+          voteCount={downVotesBy.length}
+          disabled={!authUser}
+        />
       </div>
     </div>
   )
