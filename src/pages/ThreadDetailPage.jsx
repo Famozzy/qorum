@@ -6,6 +6,7 @@ import ThreadDetail from '../components/threadDetail/ThreadDetail'
 import CommentList from '../components/threadDetail/CommentList'
 import CreateCommentForm from '../components/threadDetail/CreateCommentForm'
 import SkeletonThreadDetail from '../components/skeleton/SkeletonThreadDetail'
+import { Helmet } from 'react-helmet'
 
 export default function ThreadDetailPage() {
   const { id } = useParams()
@@ -22,10 +23,15 @@ export default function ThreadDetailPage() {
   }
 
   return (
-    <section className="mt-8 mb-20 space-y-6">
-      <ThreadDetail {...threadDetail} />
-      {<CreateCommentForm threadId={threadDetail.id} />}
-      <CommentList threadId={threadDetail.id} comments={threadDetail.comments} />
-    </section>
+    <>
+      <Helmet>
+        <title>{threadDetail.title}</title>
+      </Helmet>
+      <section className="mt-8 mb-20 space-y-6">
+        <ThreadDetail {...threadDetail} />
+        {<CreateCommentForm threadId={threadDetail.id} />}
+        <CommentList threadId={threadDetail.id} comments={threadDetail.comments} />
+      </section>
+    </>
   )
 }

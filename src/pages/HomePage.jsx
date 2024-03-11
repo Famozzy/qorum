@@ -4,6 +4,7 @@ import useSelectedCategory from '../hooks/useSelectedCategory'
 import { asyncPopulateData } from '../states/shared/action'
 import ThreadList from '../components/home/ThreadList'
 import CategoryList from '../components/home/CategoryList'
+import { Helmet } from 'react-helmet'
 
 export default function HomePage() {
   const { threads, users, categories, authUser } = useSelector((state) => state)
@@ -26,6 +27,9 @@ export default function HomePage() {
 
   return (
     <>
+      <Helmet>
+        <title>Qorum - Where Ideas Gather</title>
+      </Helmet>
       <section className="mt-8 pb-24">
         <CategoryList categories={categories} />
         <div className="divider my-6"></div>
